@@ -1,12 +1,12 @@
 import React from "react";
-import { StyledContent } from "./styles";
+import { StyledContainer } from "./styles";
 
 interface ChildrenProps {
   children: React.ReactNode;
 }
 
 const ContentWrapper = ({ children }: ChildrenProps) => {
-  return <StyledContent>{children}</StyledContent>;
+  return <StyledContainer>{children}</StyledContainer>;
 };
 
 export default ContentWrapper;

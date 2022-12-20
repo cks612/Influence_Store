@@ -1,5 +1,5 @@
 import {
-  DehydratedState,
+  type DehydratedState,
   Hydrate,
   QueryClient,
   QueryClientProvider,
