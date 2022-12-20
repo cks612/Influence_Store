@@ -1,25 +1,21 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
+import MainPage from "../components/pages/Main";
+import { useGetNews } from "../hooks/news/useGetNews";
 
 const Home: NextPage = () => {
-  return (
-    <>
-      <div>
-        <h1>Home</h1>
-      </div>
-    </>
-  );
+  return <MainPage />;
 };
 
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["news"]);
+  await queryClient.prefetchQuery(["news"], useGetNews);
 
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
