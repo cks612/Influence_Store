@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { GetStaticProps, NextPage } from "next";
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <>
       <div>
@@ -8,4 +9,17 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["news"]);
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
