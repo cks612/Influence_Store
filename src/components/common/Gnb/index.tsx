@@ -14,7 +14,7 @@ const GNB_MENU = [
 const Gnb = () => {
   return (
     <GnbWrapper>
-      <Link href="/">
+      <Link href="/" as="image">
         <Image
           src="/images/pageLogo.png"
           width={60}

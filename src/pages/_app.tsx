@@ -17,17 +17,15 @@ export default function App({
   pageProps,
 }: AppProps<{ dehydratedState: DehydratedState }>) {
   return (
-    <>
-      <ThemeProvider theme={{ ...mixins, ...color }}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <GlobalStyles />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </Hydrate>
-        </QueryClientProvider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={{ ...mixins, ...color }}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <GlobalStyles />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Hydrate>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
