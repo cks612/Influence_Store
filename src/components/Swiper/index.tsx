@@ -17,7 +17,7 @@ const NewsSwiper = () => {
 
   return (
     <>
-      <ContentTitle>오늘의 뉴스</ContentTitle>
+      <ContentTitle>오늘의 선한 영향력 뉴스를 확인해보세요!</ContentTitle>
       <Swiper
         grabCursor={true}
         slidesPerView={"auto"}
