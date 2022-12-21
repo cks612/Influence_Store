@@ -12,6 +12,13 @@ import { color, mixins } from "../styles/_theme";
 
 const queryClient = new QueryClient();
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+  const kakao: any;
+}
+
 export default function App({
   Component,
   pageProps,
