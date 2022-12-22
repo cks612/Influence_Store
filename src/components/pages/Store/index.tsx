@@ -1,8 +1,8 @@
 import React from "react";
 import Map from "../../Map";
 
-const FindStorePage = () => {
+const StorePage = () => {
   return <Map />;
 };
 
-export default FindStorePage;
+export default StorePage;
