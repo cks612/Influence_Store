@@ -6,6 +6,7 @@ import type { Store } from "../../hooks/stores/useGetStore";
 const Map = ({ store }: { store: Store[] }) => {
   const [selectStore, setSelectStore] = useState<Store | null>(null);
   const [markers, setMarkers] = useState<any[]>([]);
+  const [clusterer, setClusterer] = useState<any>(null);
   const myLocation = useGetCurrentLocation();
   const kakaoMap = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -52,6 +53,18 @@ const Map = ({ store }: { store: Store[] }) => {
     setMarkers(markerArray);
   }, [store, mapRef]);
 
+  const getCluster = useCallback(() => {
+    clusterer?.clear();
+    const cluster = new kakao.maps.MarkerClusterer({
+      map: mapRef.current,
+      markers: markers,
+      gridSize: 60,
+      averageCenter: true,
+      minLevel: 8,
+    });
+    setClusterer(cluster);
+  }, [markers]);
+
   useEffect(() => {
     kakao.maps.load(() => initMap());
   }, [initMap]);
@@ -59,6 +72,11 @@ const Map = ({ store }: { store: Store[] }) => {
   useEffect(() => {
     getMarker();
   }, [getMarker, myLocation]);
+
+  useEffect(() => {
+    if (!myLocation) return;
+    getCluster();
+  }, [myLocation, markers]);
 
   return (
     <>
