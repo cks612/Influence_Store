@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { request } from "../../utils/axios-utils";
 
 const fetchNews = () => {

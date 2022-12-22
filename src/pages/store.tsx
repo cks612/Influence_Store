@@ -1,8 +1,11 @@
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { GetStaticProps } from "next";
 import React from "react";
 import styled from "styled-components";
 import StorePage from "../components/pages/Store";
 
 import Search from "../components/Search";
+import { useGetStore } from "../hooks/stores/useGetStore";
 
 const Store = () => {
   return (
@@ -16,3 +19,14 @@ const Store = () => {
 export default Store;
 
 const StoreWrapper = styled.div``;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["news"], useGetStore);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};

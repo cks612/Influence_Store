@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
-import useGetCurrentLocation from "../../hooks/news/useGetCurrentLocation";
+import useGetCurrentLocation from "../../hooks/useGetCurrentLocation";
 
 var POSITION = [
   {
