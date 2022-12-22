@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
-import Layout from "../components/common/Layout";
+import Layout from "../components/Common/Layout";
 import GlobalStyles from "../styles/_GlobalStyles";
 import { color, mixins } from "../styles/_theme";
 

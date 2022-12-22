@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { useDebounce } from "../../hooks/utils/useDebounce";
+import Button from "../Common/Button";
 
 // 식당 데이터 가져와서 필터링 해서 업종명 가져오기
 const SELECT_OPTIONS = [
@@ -70,7 +71,23 @@ const Search = () => {
         />
       )}
 
-      <Button onClick={handleToSearch}>검색</Button>
+      <Button
+        width="190px"
+        height="50px"
+        border="2px solid #5278ff"
+        borderRadius="4px"
+        background="transparent"
+        color="#5278ff"
+        fontWeight="700"
+        hoverStyles={{
+          border: " 2px solid #fff",
+          background: "#5278ff",
+          color: "#fff",
+        }}
+        handler={handleToSearch}
+      >
+        검색
+      </Button>
     </SearchWrapper>
   );
 };
@@ -99,22 +116,4 @@ const Input = styled.input`
   padding: 10px;
   border: 1px solid;
   border-radius: 4px;
-`;
-
-const Button = styled.button`
-  width: 190px;
-  height: 50px;
-  border-radius: 4px;
-  background: transparent;
-  color: #5278ff;
-  font-weight: 700;
-  border: 2px solid #5278ff;
-  transition: 0.5s;
-  cursor: pointer;
-
-  &:hover {
-    border: 2px solid #fff;
-    background: #5278ff;
-    color: #fff;
-  }
 `;

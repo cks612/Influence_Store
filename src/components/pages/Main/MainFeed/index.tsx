@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled, { keyframes } from "styled-components";
+import Button from "../../../Common/Button";
 
 const MainFeed = () => {
   return (
@@ -36,12 +37,39 @@ const MainFeed = () => {
           href={"https://xn--o39akkz01az4ip7f4xzwoa.com/apply"}
           target="_blank"
         >
-          <Button>
+          <Button
+            width="190px"
+            height="50px"
+            border="2px solid #5278ff"
+            borderRadius="4px"
+            background="transparent"
+            color="#5278ff"
+            fontWeight="700"
+            hoverStyles={{
+              border: " 2px solid #fff",
+              background: "#5278ff",
+              color: "#fff",
+            }}
+          >
             선한영향력 동행 신청<span className="arrow"> &gt; </span>
           </Button>
         </Link>
+
         <Link href={"https://basket.fund/goodimpact/3"} target="_blank">
-          <Button>
+          <Button
+            width="190px"
+            height="50px"
+            border="2px solid #5278ff"
+            borderRadius="4px"
+            background="transparent"
+            color="#5278ff"
+            fontWeight="700"
+            hoverStyles={{
+              border: " 2px solid #fff",
+              background: "#5278ff",
+              color: "#fff",
+            }}
+          >
             선한영향력 후원하기<span className="arrow"> &gt; </span>
           </Button>
         </Link>
@@ -115,22 +143,5 @@ const StyledRegisterForm = styled.div`
     position: absolute;
     transition: 0.5s;
     animation: ${arrowAnimate} 2s linear infinite;
-  }
-`;
-
-const Button = styled.button`
-  width: 190px;
-  height: 50px;
-  background: transparent;
-  color: #5278ff;
-  font-weight: 700;
-  border: 2px solid #5278ff;
-  transition: 0.5s;
-  cursor: pointer;
-
-  &:hover {
-    border: 2px solid #fff;
-    background: #5278ff;
-    color: #fff;
   }
 `;
