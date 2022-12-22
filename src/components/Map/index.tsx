@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import useGetCurrentLocation from "../../hooks/news/useGetCurrentLocation";
 
@@ -29,7 +29,7 @@ const Map = () => {
   const myLocation = useGetCurrentLocation();
   const kakaoMap = useRef<HTMLDivElement>(null);
 
-  const initMap = () => {
+  const initMap = useCallback(() => {
     if (myLocation === null) return;
     const mapContainer = kakaoMap.current;
     const mapOption = {
@@ -50,11 +50,11 @@ const Map = () => {
       });
       kakao.maps.event.addListener(marker, "click", function () {});
     });
-  };
+  }, [myLocation]);
 
   useEffect(() => {
     kakao.maps.load(() => initMap());
-  }, [myLocation]);
+  }, [initMap]);
 
   return (
     <>
