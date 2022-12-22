@@ -9,7 +9,11 @@ const MainFeed = () => {
       <StyledSection>
         <h3>
           &apos;아이들을 돕는다&apos; 라는 공동의 목표로 무료로 음식 등을
-          제공하는 &apos;선한 영향력 가게&apos;를 아시나요?
+          제공하는
+          <span>
+            &apos;선한 영향력 가게&apos; <LineThrough />
+          </span>
+          를 아시나요?
         </h3>
 
         <p>
@@ -18,7 +22,6 @@ const MainFeed = () => {
           다양한 업종의 소상공인들이 선한 영향력으로 동참하고 있습니다. 아름답고
           따듯한 대한민국을 만들기 위해 신청해주세요!
         </p>
-        <LineThrough />
       </StyledSection>
 
       <StyledRegisterForm>
@@ -63,29 +66,33 @@ const StyledSection = styled.div`
   h3 {
     flex: 0 0 50%;
     color: #000;
-    font-size: 1.5em;
+    font-size: 2.3em;
     font-weight: 800;
-    line-height: 30px;
+    line-height: 50px;
     z-index: 10;
+
+    span {
+      position: relative;
+    }
   }
 
   p {
     flex: 0 0 50%;
     padding: 10px 10px;
-    font-size: 1.1em;
-    line-height: 20px;
+    font-size: 1.5em;
+    line-height: 30px;
     font-weight: 300;
   }
 `;
 
 const LineThrough = styled.div`
   position: absolute;
-  left: 220px;
-  top: 50px;
-  width: 155px;
+  left: 0;
+  bottom: 0;
+  width: 95%;
   height: 6px;
   background: #17acff;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
 `;
 
 const arrowAnimate = keyframes`
