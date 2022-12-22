@@ -5,7 +5,7 @@ import styled from "styled-components";
 import StorePage from "../components/pages/Store";
 
 import Search from "../components/Search";
-import { useGetStore } from "../hooks/stores/useGetStore";
+import { fetchStore } from "../hooks/stores/useGetStore";
 
 const Store = () => {
   return (
@@ -22,7 +22,7 @@ const StoreWrapper = styled.div``;
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["news"], useGetStore);
+  await queryClient.prefetchQuery(["news"], fetchStore);
 
   return {
     props: {
