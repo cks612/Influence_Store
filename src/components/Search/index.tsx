@@ -14,14 +14,13 @@ const SELECT_OPTIONS = [
 ];
 
 const Search = () => {
+  const [categoryForSearch, setCategoryForSearch] = useState("검색");
   const [searchOption, setSearchOption] = useState({
-    option: "",
+    option: "식음료",
     value: "",
   });
 
-  const [isSectorsClicked, setIsSectorsClicked] = useState(false);
-
-  const handleChange = useDebounce(
+  const handleToChangeSearchOption = useDebounce(
     (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
       const { name, value } = e.target;
 
@@ -41,22 +40,37 @@ const Search = () => {
     200
   );
 
-  const handleToSearch = () => {
-    console.log(searchOption, isSectorsClicked);
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setCategoryForSearch(value);
   };
+
+  const handleToSearch = () => {
+    if (categoryForSearch === "검색") {
+      alert("검색할 카테고리를 선택해주세요");
+      return false;
+    }
+    if (categoryForSearch === "업종") {
+      console.log(searchOption, categoryForSearch);
+    }
+    if (categoryForSearch === "주소" && searchOption.value.length === 0) {
+      alert("검색어를 입력해주세요");
+      return false;
+    } else {
+      console.log(searchOption, categoryForSearch);
+    }
+  };
+
   return (
     <SearchWrapper>
-      <Select
-        onChange={() => setIsSectorsClicked(!isSectorsClicked)}
-        defaultValue="검색"
-      >
+      <Select onChange={handleCategoryChange} defaultValue="검색">
         <option disabled>검색</option>
-        <option>업종으로 검색</option>
-        <option>주소로 검색</option>
+        <option>업종</option>
+        <option>주소</option>
       </Select>
 
-      {isSectorsClicked ? (
-        <Select onChange={handleChange}>
+      {categoryForSearch === "업종" ? (
+        <Select onChange={handleToChangeSearchOption}>
           {SELECT_OPTIONS.map(option => (
             <option key={option.value} value={option.value}>
               {option.name}
@@ -65,7 +79,7 @@ const Search = () => {
         </Select>
       ) : (
         <Input
-          onChange={handleChange}
+          onChange={handleToChangeSearchOption}
           name="value"
           placeholder="검색어를 입력하세요"
         />
@@ -97,7 +111,7 @@ export default Search;
 const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 10px;
 `;
 
 const Select = styled.select`
