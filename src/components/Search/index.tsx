@@ -18,6 +18,8 @@ const Search = () => {
     value: "",
   });
 
+  const [isSectorsClicked, setIsSectorsClicked] = useState(false);
+
   const handleChange = useDebounce(
     (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
       const { name, value } = e.target;
@@ -35,26 +37,40 @@ const Search = () => {
         }));
       }
     },
-    300
+    200
   );
 
+  const handleToSearch = () => {
+    console.log(searchOption, isSectorsClicked);
+  };
   return (
     <SearchWrapper>
-      <Select onChange={handleChange} defaultValue="검색">
+      <Select
+        onChange={() => setIsSectorsClicked(!isSectorsClicked)}
+        defaultValue="검색"
+      >
         <option disabled>검색</option>
-        {SELECT_OPTIONS.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.name}
-          </option>
-        ))}
+        <option>업종으로 검색</option>
+        <option>주소로 검색</option>
       </Select>
-      <Input
-        key={searchOption.value}
-        onChange={handleChange}
-        name="value"
-        placeholder="검색어를 입력하세요"
-        defaultValue={searchOption.value || ""}
-      />
+
+      {isSectorsClicked ? (
+        <Select onChange={handleChange}>
+          {SELECT_OPTIONS.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </Select>
+      ) : (
+        <Input
+          onChange={handleChange}
+          name="value"
+          placeholder="검색어를 입력하세요"
+        />
+      )}
+
+      <Button onClick={handleToSearch}>검색</Button>
     </SearchWrapper>
   );
 };
@@ -83,4 +99,22 @@ const Input = styled.input`
   padding: 10px;
   border: 1px solid;
   border-radius: 4px;
+`;
+
+const Button = styled.button`
+  width: 190px;
+  height: 50px;
+  border-radius: 4px;
+  background: transparent;
+  color: #5278ff;
+  font-weight: 700;
+  border: 2px solid #5278ff;
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #fff;
+    background: #5278ff;
+    color: #fff;
+  }
 `;
