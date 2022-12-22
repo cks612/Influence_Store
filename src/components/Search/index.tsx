@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import { useDebounce } from "../../hooks/utils/useDebounce";
 
 // 식당 데이터 가져와서 필터링 해서 업종명 가져오기
 const SELECT_OPTIONS = [
@@ -16,24 +17,26 @@ const Search = () => {
     option: "",
     value: "",
   });
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
 
-    if (name) {
-      setSearchOption(prev => ({
-        ...prev,
-        [name]: value,
-      }));
-    } else {
-      setSearchOption(prev => ({
-        ...prev,
-        option: value,
-        value: "",
-      }));
-    }
-  };
+  const handleChange = useDebounce(
+    (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+      const { name, value } = e.target;
+
+      if (name) {
+        setSearchOption(prev => ({
+          ...prev,
+          [name]: value,
+        }));
+      } else {
+        setSearchOption(prev => ({
+          ...prev,
+          option: value,
+          value: "",
+        }));
+      }
+    },
+    300
+  );
 
   return (
     <SearchWrapper>
@@ -46,10 +49,11 @@ const Search = () => {
         ))}
       </Select>
       <Input
+        key={searchOption.value}
         onChange={handleChange}
         name="value"
         placeholder="검색어를 입력하세요"
-        value={searchOption.value}
+        defaultValue={searchOption.value || ""}
       />
     </SearchWrapper>
   );
