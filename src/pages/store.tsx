@@ -8,7 +8,7 @@ const Store = () => {
   return (
     <StoreWrapper>
       <Search />
-      <StorePage />;
+      <StorePage />
     </StoreWrapper>
   );
 };
