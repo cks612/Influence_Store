@@ -7,7 +7,7 @@ const storeClient = axios.create({
 
 const findStore = async (_req: NextApiRequest, res: NextApiResponse) => {
   const { data } = await storeClient.get(
-    `/GGGOODINFLSTOREST?key&type=json&pIndex=1&pSize=1000`
+    `/GGGOODINFLSTOREST?key=${process.env.NEXT_PUBLIC_API_KEY}&type=json&pIndex=1&pSize=1000`
   );
 
   return res.status(200).json(data);
