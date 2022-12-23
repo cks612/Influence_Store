@@ -21,7 +21,7 @@ export default Layout;
 
 const StyledLayout = styled.main`
   position: relative;
-  max-width: 90%;
+  max-width: 950px;
   padding-top: 10px;
   margin: 0 auto;
 `;
