@@ -1,7 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import useGetCurrentLocation from "../../hooks/utils/useGetCurrentLocation";
-import type { Store } from "../../hooks/stores/useGetStore";
+import { Store } from "../../hooks/stores/useGetStore";
+import { useSearchStore } from "../../store";
 
 const Map = ({ store }: { store: Store[] }) => {
   const [selectStore, setSelectStore] = useState<Store | null>(null);
@@ -10,6 +17,11 @@ const Map = ({ store }: { store: Store[] }) => {
   const myLocation = useGetCurrentLocation();
   const kakaoMap = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
+  const { searchResult, searchText } = useSearchStore();
+  const result = useMemo(() => {
+    if (searchText === "") return store;
+    return searchResult;
+  }, [searchResult]);
 
   const initMap = useCallback(() => {
     if (myLocation === null) return;
@@ -30,8 +42,15 @@ const Map = ({ store }: { store: Store[] }) => {
   const getMarker = useCallback(() => {
     let markerArray: any[] = [];
 
-    markers.forEach(item => item.setMap(null));
-    store?.forEach(item => {
+    console.log(store, "함수내부");
+
+    clusterer?.clear();
+    markers.forEach(item => {
+      console.log("hi");
+      item.setMap(null);
+    });
+
+    result?.forEach(item => {
       const mapMarker = new kakao.maps.Marker({
         map: mapRef.current,
         position: new kakao.maps.LatLng(
@@ -50,33 +69,27 @@ const Map = ({ store }: { store: Store[] }) => {
       });
       markerArray.push(mapMarker);
     });
-    setMarkers(markerArray);
-  }, [store, mapRef]);
 
-  const getCluster = useCallback(() => {
-    clusterer?.clear();
     const cluster = new kakao.maps.MarkerClusterer({
       map: mapRef.current,
-      markers: markers,
+      markers: markerArray,
       gridSize: 60,
       averageCenter: true,
       minLevel: 8,
     });
+
     setClusterer(cluster);
-  }, [markers]);
+    setMarkers(markerArray);
+  }, [result]);
 
   useEffect(() => {
     kakao.maps.load(() => initMap());
   }, [initMap]);
 
   useEffect(() => {
+    if (!myLocation) return;
     getMarker();
   }, [getMarker, myLocation]);
-
-  useEffect(() => {
-    if (!myLocation) return;
-    getCluster();
-  }, [myLocation, markers]);
 
   return (
     <>
