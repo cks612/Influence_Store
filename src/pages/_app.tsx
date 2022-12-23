@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components";
 import Layout from "../components/Common/Layout";
 import GlobalStyles from "../styles/_GlobalStyles";
 import { color, mixins } from "../styles/_theme";
+import { SessionProvider } from "next-auth/react";
 
 const queryClient = new QueryClient();
 
@@ -21,16 +22,18 @@ declare global {
 
 export default function App({
   Component,
-  pageProps,
-}: AppProps<{ dehydratedState: DehydratedState }>) {
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <ThemeProvider theme={{ ...mixins, ...color }}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <GlobalStyles />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <SessionProvider session={session}>
+            <GlobalStyles />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SessionProvider>
         </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>
