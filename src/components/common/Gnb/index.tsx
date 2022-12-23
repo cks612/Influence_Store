@@ -16,7 +16,7 @@ const Gnb = () => {
     <GnbWrapper>
       <Link href="/" as="image">
         <Image
-          src="/images/pageLogo.png"
+          src="/images/Logo/pageLogo.png"
           width={60}
           height={60}
           alt="logo"
