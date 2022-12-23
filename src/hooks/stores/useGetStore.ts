@@ -22,8 +22,12 @@ export const fetchStore = async () => {
   const { data } = await request({
     url: `/stores`,
   });
-
   return data;
+};
+
+export const getStore = async () => {
+  const response = await fetchStore();
+  return response;
 };
 
 export const useGetStore = () => {

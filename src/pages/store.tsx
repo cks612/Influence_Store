@@ -22,7 +22,7 @@ const StoreWrapper = styled.div``;
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["news"], fetchStore);
+  await queryClient.prefetchQuery(["store"], fetchStore);
 
   return {
     props: {
