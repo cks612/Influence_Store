@@ -36,7 +36,7 @@ const LoginPage = () => {
           onClick={() => signIn("google")}
           priority
         />
-        <Button
+        {/* <Button
           width="130px"
           height="30px"
           border="2px solid #5278ff"
@@ -47,7 +47,7 @@ const LoginPage = () => {
           handler={() => signOut()}
         >
           로그아웃
-        </Button>
+        </Button> */}
       </StyledLogin>
     </>
   );
