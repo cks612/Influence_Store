@@ -25,7 +25,7 @@ const NewsSwiper = () => {
         scrollbar={{ draggable: true }}
         className="mySwiper"
       >
-        {NewsData.items.map((item: NewsDataProps) => (
+        {NewsData?.items.map((item: NewsDataProps) => (
           <SwiperSlide key={uuid_v4()}>
             <NewsCard item={item} />
           </SwiperSlide>
