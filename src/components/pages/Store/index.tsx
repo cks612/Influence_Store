@@ -30,9 +30,9 @@ const StorePage = () => {
     setInitResult();
   }, []);
 
-  // useEffect(() => {
-  //   if (searchText === "") return setSearchResult(initResult);
-  // }, [searchText, initResult]);
+  useEffect(() => {
+    if (searchText === "") setSearchResult(initResult);
+  }, [searchText, initResult]);
 
   return (
     <>

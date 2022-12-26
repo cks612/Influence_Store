@@ -1,14 +1,7 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useGetCurrentLocation from "../../hooks/utils/useGetCurrentLocation";
 import { Store } from "../../hooks/stores/useGetStore";
-import { useSearchStore } from "../../store";
 
 const Map = ({ initStore }: { initStore: Store[] }) => {
   const [selectStore, setSelectStore] = useState<Store | null>(null);
@@ -17,16 +10,6 @@ const Map = ({ initStore }: { initStore: Store[] }) => {
   const myLocation = useGetCurrentLocation();
   const kakaoMap = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
-  const { searchResult, searchText } = useSearchStore();
-
-  console.log(searchResult);
-
-  const result = useMemo(() => {
-    if (searchText === "") return initStore;
-    return searchResult;
-  }, [searchResult, searchText, initStore]);
-
-  console.log("hello");
 
   const initMap = useCallback(() => {
     if (myLocation === null) return;
@@ -109,6 +92,6 @@ const Map = ({ initStore }: { initStore: Store[] }) => {
 export default Map;
 
 const MapContainer = styled.div`
-  width: 600px;
-  height: 400px;
+  width: 100%;
+  height: 500px;
 `;
