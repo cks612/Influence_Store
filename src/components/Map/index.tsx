@@ -60,6 +60,7 @@ const Map = ({ initStore }: { initStore: Store[] }) => {
 
   const getCluster = (markerArray: any) => {
     clusterer?.clear();
+    if (markerArray.length === 0) return;
     const cluster = new kakao.maps.MarkerClusterer({
       map: mapRef.current,
       markers: markerArray,
