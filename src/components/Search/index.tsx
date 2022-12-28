@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useGetStore } from "../../hooks/stores/useGetStore";
+import { Store, useGetStore } from "../../hooks/stores/useGetStore";
 import { useDebounce } from "../../hooks/utils/useDebounce";
 import { useSearchStore } from "../../store";
 import Button from "../Common/Button";
@@ -24,17 +24,6 @@ const Search = () => {
     option: "식음료",
     value: "",
   });
-
-  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-    setSearchText(event.target.value);
-  };
-
-  const searchHandler = () => {
-    setSearchResult(
-      data?.filter((item: Store) => item.CMPNM_NM?.includes(text))
-    );
-  };
 
   const handleToChangeSearchOption = useDebounce(
     (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -67,15 +56,23 @@ const Search = () => {
       return false;
     }
     if (categoryForSearch === "업종") {
-      console.log(searchOption, categoryForSearch);
+      return false;
     }
     if (categoryForSearch === "주소" && searchOption.value.length === 0) {
       alert("검색어를 입력해주세요");
       return false;
     } else {
-      console.log(searchOption, categoryForSearch);
+      setSearchResult(
+        data?.filter((item: Store) =>
+          item.REFINE_ROADNM_ADDR?.includes(searchOption.value)
+        )
+      );
     }
   };
+
+  useEffect(() => {
+    setSearchText(searchOption.value);
+  }, [setSearchText, searchOption]);
 
   return (
     <SearchWrapper>

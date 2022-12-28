@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useSearchStore } from "../../../store";
 import ContentWrapper from "../../Content/ContentWrapper";
