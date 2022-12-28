@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import { useGetStore } from "../../hooks/stores/useGetStore";
 import { useDebounce } from "../../hooks/utils/useDebounce";
+import { useSearchStore } from "../../store";
 import Button from "../Common/Button";
 
 // 식당 데이터 가져와서 필터링 해서 업종명 가져오기
@@ -14,11 +16,25 @@ const SELECT_OPTIONS = [
 ];
 
 const Search = () => {
+  const { data } = useGetStore();
+  const { setSearchResult, setSearchText } = useSearchStore();
+
   const [categoryForSearch, setCategoryForSearch] = useState("검색");
   const [searchOption, setSearchOption] = useState({
     option: "식음료",
     value: "",
   });
+
+  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+    setSearchText(event.target.value);
+  };
+
+  const searchHandler = () => {
+    setSearchResult(
+      data?.filter((item: Store) => item.CMPNM_NM?.includes(text))
+    );
+  };
 
   const handleToChangeSearchOption = useDebounce(
     (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
