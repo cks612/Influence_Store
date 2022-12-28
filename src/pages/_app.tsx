@@ -10,6 +10,7 @@ import Layout from "../components/Common/Layout";
 import GlobalStyles from "../styles/_GlobalStyles";
 import { color, mixins } from "../styles/_theme";
 import { SessionProvider } from "next-auth/react";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const queryClient = new QueryClient();
 

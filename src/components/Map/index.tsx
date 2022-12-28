@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useGetCurrentLocation from "../../hooks/utils/useGetCurrentLocation";
 import { Store } from "../../hooks/stores/useGetStore";
+import Loading from "../Common/Loading";
 
 const Map = ({ initStore }: { initStore: Store[] }) => {
   const [selectStore, setSelectStore] = useState<Store | null>(null);
@@ -83,9 +84,8 @@ const Map = ({ initStore }: { initStore: Store[] }) => {
 
   return (
     <>
-      <MapContainer ref={kakaoMap}>
-        {!myLocation && <div>loading</div>}
-      </MapContainer>
+      {!myLocation && <Loading />}
+      <MapContainer ref={kakaoMap} />
     </>
   );
 };
