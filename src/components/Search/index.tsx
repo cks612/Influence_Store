@@ -1,6 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import { Store, useGetStore } from "../../hooks/stores/useGetStore";
 import { useDebounce } from "../../hooks/utils/useDebounce";
+import { useSearchStore } from "../../store";
 import Button from "../Common/Button";
 
 // 식당 데이터 가져와서 필터링 해서 업종명 가져오기
@@ -14,6 +16,9 @@ const SELECT_OPTIONS = [
 ];
 
 const Search = () => {
+  const { data } = useGetStore();
+  const { setSearchResult, setSearchText } = useSearchStore();
+
   const [categoryForSearch, setCategoryForSearch] = useState("검색");
   const [searchOption, setSearchOption] = useState({
     option: "식음료",
@@ -51,15 +56,23 @@ const Search = () => {
       return false;
     }
     if (categoryForSearch === "업종") {
-      console.log(searchOption, categoryForSearch);
+      return false;
     }
     if (categoryForSearch === "주소" && searchOption.value.length === 0) {
       alert("검색어를 입력해주세요");
       return false;
     } else {
-      console.log(searchOption, categoryForSearch);
+      setSearchResult(
+        data?.filter((item: Store) =>
+          item.REFINE_ROADNM_ADDR?.includes(searchOption.value)
+        )
+      );
     }
   };
+
+  useEffect(() => {
+    setSearchText(searchOption.value);
+  }, [setSearchText, searchOption]);
 
   return (
     <SearchWrapper>
